@@ -5,44 +5,43 @@ const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
 
-// Create express app
 const app = express();
 
 // CORS options for both local and production origins
 const corsOptions = {
-    origin: ['http://localhost:3000', 'https://goyaldeepak87.github.io/ChatSoket.io/'], // Allowed origins
+    origin: [
+        'http://localhost:3000', // For local development
+        'https://goyaldeepak87.github.io' // Your deployed frontend
+    ],
     methods: ['GET', 'POST'],
     credentials: true, // Allow credentials like cookies to be sent
 };
 
-// Use CORS middleware
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));  // Preflight OPTIONS requests
+app.options('*', cors(corsOptions)); // Preflight OPTIONS requests
 
-// Socket.IO server setup
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: ['http://localhost:3000', 'https://goyaldeepak87.github.io/ChatSoket.io/'],
+        origin: [
+            'http://localhost:3000',
+            'https://goyaldeepak87.github.io'
+        ],
         methods: ['GET', 'POST'],
-        credentials: true,  // Allow credentials
+        credentials: true,
     },
 });
 
 // Socket.IO connection event
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
-
-    // Emit connection ID to client
     socket.emit('connectionId', socket.id);
 
-    // Handle user messages
     socket.on('user-message', (message) => {
         console.log('User message:', message);
-        io.emit('message', message);  // Broadcast message to all clients
+        io.emit('message', message);
     });
 
-    // Handle disconnection
     socket.on('disconnect', () => {
         console.log('User disconnected:', socket.id);
     });
