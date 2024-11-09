@@ -12,7 +12,7 @@ const port = process.env.PORT || 8001;
 
 
 const corsOptions = {
-    origin: 'http://localhost:3001', // Allow requests from this origin
+    origin: 'https://goyaldeepak87.github.io/ChatSoket.io/', // Allow requests from this origin
     methods: ['GET', 'POST'],
     credentials: true // Allow credentials to be sent
 };
@@ -24,7 +24,7 @@ app.options('*', cors(corsOptions));
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:3001', // Allow this origin for Socket.IO
+        origin: 'https://goyaldeepak87.github.io/ChatSoket.io/', // Allow this origin for Socket.IO
         methods: ['GET', 'POST'],
         credentials: true
     }
@@ -33,7 +33,7 @@ const io = new Server(server, {
 
 // Socket.IO
 io.on('connection', (socket) => {
-    // console.log('A user connected:', socket.id);
+    console.log('A user connected:', socket.id);
     socket.emit('connectionId', socket.id); // Emit the connection ID back to the client
 
     // // Handle disconnection
