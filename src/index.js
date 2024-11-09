@@ -6,7 +6,7 @@ const app = require('./app')
 // const server = http.createServer(app);
 // const io = new Server(server);
 const cors = require('cors');
-const port = 'https://chimerical-crisp-4eed4f.netlify.app';
+const port = process.env.PORT || 8001;
 
 
 
