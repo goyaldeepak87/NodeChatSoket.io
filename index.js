@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
 
 
 // let apiServers;
-mongoose.connect('mongodb://127.0.0.1:27017/454545').then(()=>{
+mongoose.connect(process.env.MongoConection || 'mongodb://127.0.0.1:27017/454545').then(()=>{
     server.listen(port, ()=>{
         console.log(`start server ${port}`)
     })
